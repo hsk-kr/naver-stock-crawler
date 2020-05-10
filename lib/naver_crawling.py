@@ -74,8 +74,13 @@ def obtain_trading_trend_from_stocks(stocks, start_date=get_datetime_now(), end_
                 # ignore divider
                 if len(columns) != 9:
                     continue
-
-                date = convert_str_to_datetime(columns[0].find("span").text.strip())
+                
+                try:
+                    # if there is no data
+                    date = convert_str_to_datetime(columns[0].find("span").text.strip())
+                except:
+                    loop = False
+                    break # if it finishes parsing, end up this loop
 
                 if date > start_date:
                     continue # ignore because it has to parse more deeply
