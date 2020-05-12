@@ -1,3 +1,9 @@
 # Naver Stock Crawler
 
-The crawler parse to naver stock page and then let you show the information.
+## API Server
+  Manage database and give data to client.
+
+## Crawler Client
+  Control crawler on the website.
+
+
