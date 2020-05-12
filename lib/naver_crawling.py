@@ -6,9 +6,10 @@ from .format import get_datetime_now, convert_str_to_datetime, convert_str_to_fl
 
 # urls
 KOSPI_SISE_FALL_URL = "https://finance.naver.com/sise/sise_fall.nhn?sosok=0"
-KOSDAQ_SISE_FALL_URL =  "https://finance.naver.com/sise/sise_fall.nhn?sosok=1"
+KOSDAQ_SISE_FALL_URL = "https://finance.naver.com/sise/sise_fall.nhn?sosok=1"
 TRADING_TREND_URL = "https://finance.naver.com/item/frgn.nhn?code={0}&page={1}"
-STOCK_DETAIL_URL = "https://finance.naver.com"
+STOCK_DETAIL_URL = "https://finance.naver.com{}"
+
 
 def get_source_from_url(url, encoding="euc-kr"):
     """
@@ -18,9 +19,9 @@ def get_source_from_url(url, encoding="euc-kr"):
     res.encoding = encoding
     return res.text
 
-
-
-def obtain_trading_trend_from_stocks(stocks, start_date=get_datetime_now(), end_date=get_datetime_now()):
+def obtain_trading_trend_from_stocks(
+    stocks, start_date=get_datetime_now(), end_date=get_datetime_now()
+):
     """
         obtain trading trend from the stocks that obtained by obtain_stoks func.
         
@@ -65,28 +66,31 @@ def obtain_trading_trend_from_stocks(stocks, start_date=get_datetime_now(), end_
             html = get_source_from_url(url_to_parse)
             soup = BeautifulSoup(html, "html.parser")
 
-            table = soup.find("table", {"class": "type2", "summary": "외국인 기관 순매매 거래량에 관한표이며 날짜별로 정보를 제공합니다."})
-            rows = table.find_all("tr")[2:] # ignore header rows
+            table = soup.find(
+                "table",
+                {"class": "type2", "summary": "외국인 기관 순매매 거래량에 관한표이며 날짜별로 정보를 제공합니다."},
+            )
+            rows = table.find_all("tr")[2:]  # ignore header rows
 
             for row in rows:
                 columns = row.find_all("td")
-                
+
                 # ignore divider
                 if len(columns) != 9:
                     continue
-                
+
                 try:
                     # if there is no data
                     date = convert_str_to_datetime(columns[0].find("span").text.strip())
                 except:
                     loop = False
-                    break # if it finishes parsing, end up this loop
+                    break  # if it finishes parsing, end up this loop
 
                 if date > start_date:
-                    continue # ignore because it has to parse more deeply
+                    continue  # ignore because it has to parse more deeply
                 elif date < end_date:
                     loop = False
-                    break # if it finishes parsing, end up this loop
+                    break  # if it finishes parsing, end up this loop
 
                 tmp = {
                     "date": date,
@@ -97,10 +101,15 @@ def obtain_trading_trend_from_stocks(stocks, start_date=get_datetime_now(), end_
                 }
 
                 trading_trend.append(tmp)
-            log("parsing trading trend stocks {}/{} page {}".format(idx+1, stocks_length, page))
+            log(
+                "parsing trading trend stocks {}/{} page {}".format(
+                    idx + 1, stocks_length, page
+                )
+            )
             page += 1
         stock["trading_trend"] = trading_trend
     return new_stocks
+
 
 def obtain_stocks(type):
     """
@@ -137,9 +146,9 @@ def obtain_stocks(type):
 
     for idx, row in enumerate(rows):
         log("type: {} Parsing... {}".format(type, idx))
-        
+
         columns = row.find_all("td")
-        
+
         # ignore divider
         if len(columns) != 12:
             continue
@@ -147,15 +156,11 @@ def obtain_stocks(type):
         link = columns[1].find("a")
 
         stock_name = link.text.strip()
-        stock_code = link["href"][link["href"].find("code=") + len("code="):]
+        stock_code = link["href"][link["href"].find("code=") + len("code=") :]
         stock_link = STOCK_DETAIL_URL.format(link["href"])
 
-        stock_list.append({
-            "name": stock_name,
-            "code": stock_code,
-            "link": stock_link
-        })
+        stock_list.append({"name": stock_name, "code": stock_code, "link": stock_link})
 
     log("type: {} Parsing Done".format(type))
-    
+
     return stock_list

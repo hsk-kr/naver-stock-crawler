@@ -1,5 +1,6 @@
 from .format import get_datetime_now
 
+
 def analyze_stock_trading_trend(stocks):
     """
     Analyze stock's trading trends
@@ -37,15 +38,17 @@ def analyze_stock_trading_trend(stocks):
         for idx, info in enumerate(trading_trend):
             if info["institution"] > 0 and info["foreigner"] > 0:
                 if idx == 0:
-                    analyzed_data.append({
-                        "result": None,
-                        "date": info["date"],
-                        "closing_price": info["closing_price"],
-                        "institution": info["institution"],
-                        "foreigner": info["foreigner"]
-                    })
+                    analyzed_data.append(
+                        {
+                            "result": None,
+                            "date": info["date"],
+                            "closing_price": info["closing_price"],
+                            "institution": info["institution"],
+                            "foreigner": info["foreigner"],
+                        }
+                    )
                 else:
-                    next_day_info = trading_trend[idx-1]
+                    next_day_info = trading_trend[idx - 1]
 
                     if next_day_info["closing_price"] > info["closing_price"]:
                         type = "rise"
@@ -54,22 +57,25 @@ def analyze_stock_trading_trend(stocks):
                     else:
                         type = "neutrality"
 
-                    analyzed_data.append({
-                        "result": {
-                            "type": type,
-                            "closing_price": next_day_info["closing_price"],
-                            "institution": next_day_info["closing_price"],
-                            "foreigner": next_day_info["closing_price"],
-                            "date": next_day_info["date"]
-                        },
-                        "date": info["date"],
-                        "closing_price": info["closing_price"],
-                        "institution": info["institution"],
-                        "foreigner": info["foreigner"]
-                    })
+                    analyzed_data.append(
+                        {
+                            "result": {
+                                "type": type,
+                                "closing_price": next_day_info["closing_price"],
+                                "institution": next_day_info["institution"],
+                                "foreigner": next_day_info["foreigner"],
+                                "date": next_day_info["date"],
+                            },
+                            "date": info["date"],
+                            "closing_price": info["closing_price"],
+                            "institution": info["institution"],
+                            "foreigner": info["foreigner"],
+                        }
+                    )
 
         stock["analyzed_data"] = analyzed_data
     return new_stocks
+
 
 def calculate_analyzed_data_probability(stocks):
     """
@@ -84,7 +90,7 @@ def calculate_analyzed_data_probability(stocks):
         neutrality = 0
 
         analyzed_data = stock["analyzed_data"]
-        
+
         for data in analyzed_data:
             if data["result"] == None:
                 continue
@@ -95,10 +101,12 @@ def calculate_analyzed_data_probability(stocks):
                 fall += 1
             else:
                 neutrality += 1
-        
+
         rise_probability = rise / (rise + fall + neutrality) * 100 if rise > 0 else 0
         fall_probability = fall / (rise + fall + neutrality) * 100 if fall > 0 else 0
-        neutrality_probability = neutrality / (rise + fall + neutrality) * 100 if neutrality > 0 else 0
+        neutrality_probability = (
+            neutrality / (rise + fall + neutrality) * 100 if neutrality > 0 else 0
+        )
 
         stock["analyzed_data_probability"] = {
             "rise": rise,
@@ -106,7 +114,7 @@ def calculate_analyzed_data_probability(stocks):
             "neutrality": neutrality,
             "rise_probability": rise_probability,
             "fall_probability": fall_probability,
-            "neutrality_probability": neutrality_probability
+            "neutrality_probability": neutrality_probability,
         }
 
     return new_stocks
