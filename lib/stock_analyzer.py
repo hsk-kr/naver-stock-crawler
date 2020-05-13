@@ -10,7 +10,7 @@ def analyze_stock_trading_trend(stocks):
     [
         {
             ...
-            analayzed_data: [
+            "analyzed_data": [
                 {
                     "result": None | {
                         "type": "rise" | "fall",
@@ -81,6 +81,28 @@ def calculate_analyzed_data_probability(stocks):
     """
         It calculates rise or fall or neutrality probability of trading trends of stocks that
         and then append "analyzed_data_probability" to stocks then returns it
+
+        Return :
+        [
+            {
+                ...
+                "analyzed_data_probability": [
+                    {
+                        "result": None | {
+                            "type": "rise" | "fall",
+                            "closing_price": float,
+                            "institution": float,
+                            "foreigner": float,
+                            "date": datetime
+                        },
+                        'date": datetime,
+                        "closing_price": float,
+                        "institution": float,
+                        "foreigner": float
+                    }
+                ]
+            }
+        ]
     """
     new_stocks = stocks[:]
 
