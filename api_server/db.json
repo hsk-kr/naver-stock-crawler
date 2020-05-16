@@ -1,8 +1,0 @@
-{
-  "ENGINE": "django.db.backends.postgresql_psycopg2",
-  "NAME": "crawlingdb",
-  "HOST": "crawlingdb.csosj9v2pjnj.ap-northeast-2.rds.amazonaws.com",
-  "PORT": 5432,
-  "USER": "postgres",
-  "PASSWORD": "q1w2e3r4!"
-}
