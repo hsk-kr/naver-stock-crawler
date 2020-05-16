@@ -21,6 +21,13 @@ def convert_str_to_float(str):
     return float(str.replace(",", ""))
 
 
+def convert_datetime_to_str(datetimeobj, format="%Y.%m.%d"):
+    """
+        Convert datetime object to string.
+    """
+    return datetimeobj.strftime(format)
+
+
 def get_datetime_now():
     """
         Return datetiem.now()

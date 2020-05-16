@@ -17,9 +17,9 @@ def analyze_stock_trading_trend(stocks):
                         "closing_price": float,
                         "institution": float,
                         "foreigner": float,
-                        "date": datetime
+                        "date": str
                     },
-                    'date": datetime,
+                    'date": str,
                     "closing_price": float,
                     "institution": float,
                     "foreigner": float
@@ -93,9 +93,9 @@ def calculate_analyzed_data_probability(stocks):
                             "closing_price": float,
                             "institution": float,
                             "foreigner": float,
-                            "date": datetime
+                            "date": string
                         },
-                        'date": datetime,
+                        'date": string,
                         "closing_price": float,
                         "institution": float,
                         "foreigner": float

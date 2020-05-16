@@ -1,8 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 
-from .log import log
-from .format import get_datetime_now, convert_str_to_datetime, convert_str_to_float
+# from .log import log
+from .format import get_datetime_now, convert_str_to_datetime, convert_str_to_float, convert_datetime_to_str
 
 # urls
 KOSPI_SISE_FALL_URL = "https://finance.naver.com/sise/sise_fall.nhn?sosok=0"
@@ -40,7 +40,7 @@ def obtain_trading_trend_from_stocks(
             "code": str,
             "link": str,
             "trading_trend": [{
-                "date": dateobject,
+                "date": string,
                 "closing_price", float,
                 "volumn": float,
                 "institution": float,
@@ -93,7 +93,7 @@ def obtain_trading_trend_from_stocks(
                     break  # if it finishes parsing, end up this loop
 
                 tmp = {
-                    "date": date,
+                    "date": convert_datetime_to_str(date),
                     "closing_price": convert_str_to_float(columns[1].find("span").text),
                     "volumn": convert_str_to_float(columns[4].find("span").text),
                     "institution": convert_str_to_float(columns[5].find("span").text),
@@ -101,11 +101,11 @@ def obtain_trading_trend_from_stocks(
                 }
 
                 trading_trend.append(tmp)
-            log(
-                "parsing trading trend stocks {}/{} page {}".format(
-                    idx + 1, stocks_length, page
-                )
-            )
+            # log(
+            #     "parsing trading trend stocks {}/{} page {}".format(
+            #         idx + 1, stocks_length, page
+            #     )
+            # )
             page += 1
         stock["trading_trend"] = trading_trend
     return new_stocks
@@ -145,7 +145,7 @@ def obtain_stocks(type):
     stock_list = []
 
     for idx, row in enumerate(rows):
-        log("type: {} Parsing... {}".format(type, idx))
+        # log("type: {} Parsing... {}".format(type, idx))
 
         columns = row.find_all("td")
 
@@ -161,6 +161,6 @@ def obtain_stocks(type):
 
         stock_list.append({"name": stock_name, "code": stock_code, "link": stock_link})
 
-    log("type: {} Parsing Done".format(type))
+    # log("type: {} Parsing Done".format(type))
 
     return stock_list
