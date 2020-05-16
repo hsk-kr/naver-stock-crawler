@@ -14,7 +14,7 @@ class Stock(models.Model):
     code = models.CharField(max_length=20)
     link = models.CharField(max_length=256)
     trading_trend = JSONField()
-    analayzed_data = JSONField()
+    analyzed_data = JSONField()
     analyzed_data_probability = JSONField()
     created_at = models.DateTimeField(default=timezone.now)
 
