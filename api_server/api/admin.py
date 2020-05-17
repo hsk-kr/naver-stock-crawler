@@ -22,7 +22,7 @@ class StockAdmin(admin.ModelAdmin):
     )
 
     def crawler_id(self, obj):
-        return obj.crawler.id
+        return obj.crawler.tid
 
     crawler_id.short_description = "crawler"
 
