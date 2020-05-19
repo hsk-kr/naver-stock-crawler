@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from .models import Crawler, Log, Stock
 
+
 class CrawlerAdmin(admin.ModelAdmin):
     list_display = (
         "id",
@@ -22,14 +23,12 @@ class StockAdmin(admin.ModelAdmin):
     )
 
     def crawler_id(self, obj):
-        return obj.crawler.tid
+        return obj.crawler.id
 
     crawler_id.short_description = "crawler"
 
     def link_href(self, obj):
-        return format_html(
-            "<a href={url} target='_blank'>OPEN</a>", url=obj.link
-        )
+        return format_html("<a href={url} target='_blank'>OPEN</a>", url=obj.link)
 
     link_href.short_description = "link"
 
@@ -45,6 +44,7 @@ class LogAdmin(admin.ModelAdmin):
         return obj.crawler.id
 
     crawler_id.short_description = "crawler"
+
 
 admin.site.register(Crawler, CrawlerAdmin)
 admin.site.register(Log, LogAdmin)
