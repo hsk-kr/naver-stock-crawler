@@ -10,6 +10,7 @@ import {
   fetchLatestCrawlerId,
   fetchCrawlerLog,
 } from "../../lib/api";
+import { convertDateToStockDateFormat } from "../../lib/date";
 
 const cx = classNames.bind(styles);
 
@@ -25,12 +26,12 @@ const CrawlerPage = () => {
   const [strLog, setStrLog] = useState("loading...");
 
   const executeBtnOnClick = useCallback(() => {
-    const strStartDate = `${startDate.getFullYear()}.${
-      startDate.getMonth() + 1
-    }.${startDate.getDate()}`;
-    const strEndDate = `${endDate.getFullYear()}.${
-      endDate.getMonth() + 1
-    }.${endDate.getDate()}`;
+    if (startDate === null || endDate === null) {
+      return;
+    }
+
+    const strStartDate = convertDateToStockDateFormat(startDate);
+    const strEndDate = convertDateToStockDateFormat(endDate);
 
     executeCrawler(strStartDate, strEndDate).then((executed) => {
       if (executed) {
@@ -66,6 +67,11 @@ const CrawlerPage = () => {
 
   // api timer
   useEffect(() => {
+    fetchLatestCrawlerId().then((latestId) => {
+      if (crawlerId !== latestId) {
+        setCrawlerId(latestId);
+      }
+    });
     if (crawlerId !== null) {
       tmLog = setInterval(async () => {
         try {
