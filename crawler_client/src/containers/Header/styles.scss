@@ -1,0 +1,14 @@
+.mr-auto {
+  a {
+    color: gray;
+    text-decoration: none;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .selected {
+    color: #fff;
+  }
+}
