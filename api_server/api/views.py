@@ -68,8 +68,6 @@ class CrawlerExecutionView(View):
     def post(self, request):
         form = CrawlerExecutionValidationForm(request.POST)
 
-        print(request.POST)
-
         if not form.is_valid():
             return JsonResponse({"msg": "Bad request"}, status=400)
 
