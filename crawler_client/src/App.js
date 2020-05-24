@@ -4,6 +4,7 @@ import Home from "./containers/HomePage";
 import Header from "./containers/Header";
 import CrawlerPage from "./containers/CrawlerPage";
 import CrawlerListPage from "./containers/CrawlerListPage";
+import StockListPage from "./containers/StockListPage";
 
 const App = () => {
   return (
@@ -16,6 +17,9 @@ const App = () => {
           </Route>
           <Route path="/history/:page">
             <CrawlerListPage />
+          </Route>
+          <Route path="/stocklist/:crawlerid">
+            <StockListPage />
           </Route>
           <Route path="/">
             <Home />

@@ -1,0 +1,24 @@
+.stocklist-container {
+  padding: 50px;
+
+  .stocklist-box {
+    overflow: scroll;
+
+    .stocklist-table {
+      tbody > tr {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .order-column {
+    color: #95afc0;
+
+    &:hover {
+      color: #c7ecee;
+      cursor: pointer;
+    }
+  }
+}

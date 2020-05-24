@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import classNames from "classnames/bind";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { Table } from "react-bootstrap";
 import styles from "./styles.scss";
 import Loading from "../../components/Loading";
@@ -9,10 +9,15 @@ import { convertStringToLocalDateString } from "../../lib/date";
 
 const cx = classNames.bind(styles);
 
-const CrawlerPage = () => {
+const CrawlerListPage = () => {
   const [loading, setLoading] = useState(true);
   const [crawlerData, setCrawlerData] = useState(null);
   const { page } = useParams();
+  const history = useHistory();
+
+  const navigateUrl = useCallback((crawlerid) => {
+    history.push(`/stocklist/${crawlerid}`);
+  }, []);
 
   useEffect(() => {
     fetchCrawlerList(page).then((data) => {
@@ -46,7 +51,7 @@ const CrawlerPage = () => {
           <tbody>
             {crawlerData &&
               crawlerData.results.map((crawlerInfo, idx) => (
-                <tr key={idx}>
+                <tr key={idx} onClick={() => navigateUrl(crawlerInfo.id)}>
                   <td>{crawlerInfo.id}</td>
                   <td>
                     {convertStringToLocalDateString(crawlerInfo.created_at)}
@@ -65,4 +70,4 @@ const CrawlerPage = () => {
   );
 };
 
-export default CrawlerPage;
+export default CrawlerListPage;

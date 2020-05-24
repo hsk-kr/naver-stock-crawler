@@ -27,7 +27,9 @@ class CrawlerPagination(pagination.PageNumberPagination):
 class StockViewSet(viewsets.ModelViewSet):
     serializer_class = StockSerializer
     queryset = Stock.objects.all()
-
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter]
+    ordering_fields = ["created_at"]
+    search_fields = ["=crawler__id"]
 
 class CrawlerViewSet(viewsets.ModelViewSet):
     serializer_class = CrawlerSerializer
