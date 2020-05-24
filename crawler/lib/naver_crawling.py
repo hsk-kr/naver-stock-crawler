@@ -101,11 +101,6 @@ def obtain_trading_trend_from_stocks(
                 }
 
                 trading_trend.append(tmp)
-            # log(
-            #     "parsing trading trend stocks {}/{} page {}".format(
-            #         idx + 1, stocks_length, page
-            #     )
-            # )
             page += 1
         stock["trading_trend"] = trading_trend
     return new_stocks

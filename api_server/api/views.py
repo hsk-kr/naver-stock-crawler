@@ -83,7 +83,7 @@ class CrawlerExecutionView(View):
             else:
                 p_crawler = None
         proc_params = ["python", "../crawler/crawler.py"]
-        proc_params.extend([request.POST["start_date"], request.POST["end_date"]])
+        proc_params.extend([request.POST["end_date"], request.POST["start_date"]])
         p_crawler = subprocess.Popen(proc_params, stdout=subprocess.PIPE)
 
         return JsonResponse({"msg": "success to execute"}, status=202)

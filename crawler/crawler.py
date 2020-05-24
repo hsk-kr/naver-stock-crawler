@@ -18,7 +18,7 @@ if __name__ == "__main__":
         end_date = sys.argv[2]
     else:
         print("python crawler.py [start_date] [end_date]")
-        print("example) python crawler.py 2020.01.01 2020.03.01")
+        print("example) python crawler.py 2020.03.01 2020.01.01")
         sys.exit(0)
 
     crawler = api_create_crawler()
