@@ -1,0 +1,28 @@
+.crawlerlist-container {
+  padding: 50px;
+
+  .crawlerlist-box {
+    overflow: scroll;
+
+    .crawlerlist-table {
+      tbody > tr {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .pagination-box {
+    margin-bottom: 10px;
+
+    a {
+      text-decoration: none;
+      color: white;
+      background-color: #636e72;
+      border-radius: 8px;
+      padding: 10px;
+      margin: 5px;
+    }
+  }
+}

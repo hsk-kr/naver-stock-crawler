@@ -1,7 +1,8 @@
-.mr-auto {
-  a {
+.nav {
+  .nav-item {
     color: gray;
     text-decoration: none;
+    margin-right: 10px;
 
     &:hover {
       color: #fff;

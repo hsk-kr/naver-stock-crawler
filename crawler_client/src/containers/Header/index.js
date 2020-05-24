@@ -1,10 +1,7 @@
 import React from "react";
-import classNames from "classnames/bind";
 import { Navbar, Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import styles from "./styles.scss";
-
-const cx = classNames.bind(styles);
+import "./styles.scss";
 
 const Header = () => {
   return (
@@ -12,17 +9,21 @@ const Header = () => {
       <Navbar.Brand href="/">NSC</Navbar.Brand>
       <Navbar.Toggle aria-controls="header" />
       <Navbar.Collapse id="header">
-        <Nav className="mr-auto">
-          <Nav.Link>
-            <NavLink to="/crawler" activeClassName="selected">
-              Cralwer
-            </NavLink>
-          </Nav.Link>
-          <Nav.Link>
-            <NavLink to="/b" activeClassName="selected">
-              Stocks
-            </NavLink>
-          </Nav.Link>
+        <Nav className="mr-auto nav">
+          <NavLink
+            to="/crawler"
+            className="nav-item"
+            activeClassName="selected"
+          >
+            Cralwer
+          </NavLink>
+          <NavLink
+            to="/history/1"
+            className="nav-item"
+            activeClassName="selected"
+          >
+            History
+          </NavLink>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

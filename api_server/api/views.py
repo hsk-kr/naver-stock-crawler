@@ -17,8 +17,8 @@ from .serializers import (
 # Pagination Classes
 
 
-# class LogPagination(pagination.PageNumberPagination):
-#     page_size = 50
+class CrawlerPagination(pagination.PageNumberPagination):
+    page_size = 10
 
 
 # ViewSets Classes
@@ -31,6 +31,7 @@ class StockViewSet(viewsets.ModelViewSet):
 
 class CrawlerViewSet(viewsets.ModelViewSet):
     serializer_class = CrawlerSerializer
+    pagination_class = CrawlerPagination
     queryset = Crawler.objects.all()
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ["id"]
