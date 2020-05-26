@@ -4,6 +4,7 @@ import {
   API_CRAWLER_EXECUTION,
   API_FETCH_CRAWLER_LIST,
   API_FETCH_STOCK_LIST,
+  API_FETCH_STOCK,
   API_FETCH_LOG,
 } from "../config";
 
@@ -26,6 +27,25 @@ export const availableCrawling = async () => {
 };
 
 /**
+ * Returns sotkc by stockid. if there is an error, returns null.
+ * @param {number} stockid 
+ */
+export const fetchStock = async (stockid) => {
+  try {
+    const apiRes = await axios.get(API_FETCH_STOCK + stockid);
+
+    if (apiRes.status !== 200) {
+      throw new Error(`Status: ${apiRes.status}`);
+    }
+
+    return apiRes.data;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+}
+
+/**
  * Returns stockList by crawlerId. If there is an error, returns null.
  * @param {number} crawlerId
  */
@@ -36,7 +56,7 @@ export const fetchStockList = async (crawlerId) => {
         search: crawlerId,
       },
     });
-    console.log(apiRes);
+
     if (apiRes.status !== 200) {
       throw new Error(`Status: ${apiRes.status}`);
     }

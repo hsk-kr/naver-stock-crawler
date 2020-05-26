@@ -73,25 +73,28 @@ const StockListPage = () => {
     <div className={cx("stocklist-container")}>
       <h1>StockList Of {crawlerid}</h1>
       <hr />
-      <div className="stocklist-box">
+      <div className={cx("stocklist-box")}>
         <Table
           striped
           bordered
           hover
           variant="dark"
-          className="stocklist-table"
+          className={cx("stocklist-table")}
         >
           <thead>
             <tr>
-              <th className="order-column" onClick={orderById}>
+              <th className={cx("order-column")} onClick={orderById}>
                 Num
               </th>
               <th>Name</th>
               <th>Code</th>
-              <th className="order-column" onClick={orderByAnalyzedDataLength}>
+              <th
+                className={cx("order-column")}
+                onClick={orderByAnalyzedDataLength}
+              >
                 Analyzed Data Length
               </th>
-              <th className="order-column" onClick={orderByResult}>
+              <th className={cx("order-column")} onClick={orderByResult}>
                 Result
               </th>
             </tr>

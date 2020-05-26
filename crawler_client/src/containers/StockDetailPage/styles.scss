@@ -1,0 +1,85 @@
+.stock-detail-container {
+    padding: 50px;
+
+    .stock-detail-box {
+        overflow: scroll;
+
+        .stock-detail-info {
+            margin-bottom: 10px;
+            font-size: 0.9em;
+
+            .label {
+                margin-right: 10px;    
+                color: #636e72;
+            }
+
+            .info {
+                font-weight: bold;
+                color: #00b894;
+            }
+        }
+
+        .trading_trend_table {
+            tbody > tr {
+                &:hover {
+                cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .analyzed-data-list {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        column-gap: 1em;
+        row-gap: 1em;
+
+        // Large devices (desktops, 992px and up)
+        @media (max-width: 992px) { 
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        // Small devices (landscape phones, 576px and up)
+        @media (max-width: 576px) { 
+            grid-template-columns: 1fr;
+        }
+
+
+        .analyzed-data-card {
+            border-radius: 15px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.2);
+
+            h2 {
+                font-size: 2em;
+                font-weight: bold;
+            }
+
+            .result {
+                font-size: 1.5em;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            .label {
+                margin-right: 10px;    
+                color: #636e72;
+            }
+
+            .info {
+                font-weight: bold;
+                color: #00b894;
+            }
+        }   
+    }
+
+    .rise {
+        color: #d63031 !important;
+    }
+
+    .fall {
+        color: #0984e3 !important;
+    }
+}
+  

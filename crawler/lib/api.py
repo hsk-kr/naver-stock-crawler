@@ -7,14 +7,12 @@ API_CRAWLER_URL = "{0}/crawler/".format(API_BASE_URL)
 API_LOG_URL = "{0}/log/".format(API_BASE_URL)
 API_STOCK_URL = "{0}/stock/".format(API_BASE_URL)
 
+
 def api_log(crawler, message):
     """
         Request log API and returns True or False depends on a result of the API
     """
-    api_res = requests.post(API_LOG_URL, data = {
-        "crawler": crawler,
-        "message": message
-    })
+    api_res = requests.post(API_LOG_URL, data={"crawler": crawler, "message": message})
 
     return api_res.status_code == 201
 
@@ -31,10 +29,9 @@ def api_create_crawler():
 
     data = api_res.json()
     return data["id"]
-    return None
 
 
 def api_create_stocks(crawler, stocks):
-    for stock in stocks: 
+    for stock in stocks:
         stock["crawler"] = crawler
         requests.post(API_STOCK_URL, json=stock)
