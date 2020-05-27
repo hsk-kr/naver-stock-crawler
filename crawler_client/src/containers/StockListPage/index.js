@@ -12,9 +12,9 @@ const cx = classNames.bind(styles);
 const StockListPage = () => {
   const [loading, setLoading] = useState(true);
   const [stocks, setStocks] = useState([]);
-  const [numOrder, setNumOrder] = useState(true);
-  const [lengthOrder, setLengthOrder] = useState(true);
-  const [resultOrder, setResultOrder] = useState(true);
+  const [numOrder, setNumOrder] = useState(false);
+  const [lengthOrder, setLengthOrder] = useState(false);
+  const [resultOrder, setResultOrder] = useState(false);
   const { crawlerid } = useParams();
   const history = useHistory();
 
@@ -56,7 +56,7 @@ const StockListPage = () => {
       stocks.map((stock) => {
         stock.result_order_value =
           stock.analyzed_data.length > 0 &&
-          stock.analyzed_data[0].result === null
+            stock.analyzed_data[0].result === null
             ? 1
             : 0;
       });
@@ -109,11 +109,11 @@ const StockListPage = () => {
                   <td>{stock.analyzed_data.length}</td>
                   <td>
                     {stock.analyzed_data.length > 0 &&
-                    stock.analyzed_data[0].result === null ? (
-                      <Badge variant="success">O</Badge>
-                    ) : (
-                      <Badge variant="danger">X</Badge>
-                    )}
+                      stock.analyzed_data[0].result === null ? (
+                        <Badge variant="success">O</Badge>
+                      ) : (
+                        <Badge variant="danger">X</Badge>
+                      )}
                   </td>
                 </tr>
               ))}
