@@ -19,7 +19,10 @@ const StockListPage = () => {
   const history = useHistory();
 
   const navigateUrl = useCallback((stockid) => {
-    history.push(`/stock/${stockid}`);
+    const win = window.open(`/stock/${stockid}`, '_blank');
+    if (win) {
+      win.focus();
+    }
   }, []);
 
   const orderById = useCallback(() => {
